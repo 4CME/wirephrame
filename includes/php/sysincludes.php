@@ -16,7 +16,10 @@
 	require('libs/COSA/cosa.php');
 	
 	//RePHPort - lib para geração de relatórios
-	require('libs/rephport/RePHPort.php');
+	require('libs/RePHPort/RePHPort.php');
+	
+	//FirePHP - lib para depuração com Ajax/WebServices
+	require('libs/FirePHP/fb.php');
 	
 	//Configurações do Sistema
 	require('sysconf.php');
