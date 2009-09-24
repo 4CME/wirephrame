@@ -11,7 +11,7 @@
 			if ($code)
 				return $code;
 			
-			throw new Exception("Interface not found: ".$interface."");
+			WPDebug::exception("Interface not found: ".$interface."");
 		}
 	}
 

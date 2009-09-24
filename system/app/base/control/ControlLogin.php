@@ -25,7 +25,7 @@
 				{
 					// Conectando ao servidor
 					if (!ldap_bind($GLOBALS['AUTH_LDAP_CONN'], $GLOBALS['AUTH_LDAP_DOMAIN'].'\\'.$cosa_user, $cosa_pass))
-						throw new Exception('Não foi possível autenticar no LDAP/AD.');
+						WPDebug::exception('Não foi possível autenticar no LDAP/AD.');
 				}
 				//... ou no banco de dados
 				else
@@ -68,7 +68,7 @@
 					}
 				}
 				else
-					throw new Exception($this->counter.' >> '.$e->getMessage());
+					WPDebug::exception($this->counter.' >> '.$e->getMessage());
 			}
 
 		}

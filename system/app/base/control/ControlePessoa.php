@@ -27,20 +27,20 @@
 			}
 			catch(Exception $e)
 			{
-				throw new Exception("Não foi possível localizar cadastro com os dados informados:\n$index: $value");
+				WPDebug::exception("Não foi possível localizar cadastro com os dados informados:\n$index: $value");
 			}
 		}
 		
 		public function validarPessoa($params)
 		{
 			if (!trim($params->Pessoa->nome))
-				throw new Exception("É obrigatório informar o nome.");
+				WPDebug::exception("É obrigatório informar o nome.");
 			if (strlen(trim($params->Pessoa->nome)) < 3)
-				throw new Exception("Nome da pessoa deve ter no mínimo 3 caracteres.");
+				WPDebug::exception("Nome da pessoa deve ter no mínimo 3 caracteres.");
 				
 			//valida enderecos
 			if (!isset($params->Pessoa->enderecos->Endereco))
-				throw new Exception("É obrigatório informar um endereço de contato.");
+				WPDebug::exception("É obrigatório informar um endereço de contato.");
 				
 			if ($params->Pessoa->enderecos->Endereco instanceof stdClass)
 			{
@@ -53,7 +53,7 @@
 				
 			//valida telefones
 			if (!isset($params->Pessoa->telefones->Telefone))
-				throw new Exception("É obrigatório informar um telefone de contato.");
+				WPDebug::exception("É obrigatório informar um telefone de contato.");
 				
 			if ($params->Pessoa->telefones->Telefone instanceof stdClass)
 			{
@@ -66,7 +66,7 @@
 				
 			//valida emails
 			if (!isset($params->Pessoa->emails->Email))
-				throw new Exception("É obrigatório informar um e-mail de contato.");
+				WPDebug::exception("É obrigatório informar um e-mail de contato.");
 				
 			if ($params->Pessoa->emails->Email instanceof stdClass)
 			{
@@ -171,27 +171,27 @@
 		public function validarEnderecos($values)
 		{
 			if (!trim($values->endereco))
-				throw new Exception("É obrigatório informar o endereço.");
+				WPDebug::exception("É obrigatório informar o endereço.");
 			if (strlen(trim($values->endereco)) < 10)
-				throw new Exception("Endereço deve ter no mínimo 10 caracteres.");
+				WPDebug::exception("Endereço deve ter no mínimo 10 caracteres.");
 			if (!trim($values->id_tipoendereco))
-				throw new Exception("É obrigatório informar o tipo do endereço.");
+				WPDebug::exception("É obrigatório informar o tipo do endereço.");
 			if (!trim($values->bairro))
-				throw new Exception("É obrigatório informar o bairro.");
+				WPDebug::exception("É obrigatório informar o bairro.");
 			if (strlen(trim($values->bairro)) < 3)
-				throw new Exception("Bairro deve ter no mínimo 3 caracteres.");
+				WPDebug::exception("Bairro deve ter no mínimo 3 caracteres.");
 			if (!trim($values->cidade))
-				throw new Exception("É obrigatório informar a cidade do endereço.");
+				WPDebug::exception("É obrigatório informar a cidade do endereço.");
 			if (strlen(trim($values->cidade)) < 3)
-				throw new Exception("Cidade do endereço deve ter no mínimo 3 caracteres.");
+				WPDebug::exception("Cidade do endereço deve ter no mínimo 3 caracteres.");
 			if (!trim($values->id_uf))
-				throw new Exception("É obrigatório informar a uf do endereço.");
+				WPDebug::exception("É obrigatório informar a uf do endereço.");
 			if (!trim($values->id_pais))
-				throw new Exception("É obrigatório informar o país do endereço.");
+				WPDebug::exception("É obrigatório informar o país do endereço.");
 			if (!trim($values->cep))
-				throw new Exception("É obrigatório informar o CEP.");
+				WPDebug::exception("É obrigatório informar o CEP.");
 			if (strlen(trim($values->cep)) < 8)
-				throw new Exception("CEP deve ter no mínimo 8 caracteres.");
+				WPDebug::exception("CEP deve ter no mínimo 8 caracteres.");
 		}
 
 		public function salvarEnderecos($values)
@@ -226,19 +226,19 @@
 		public function validarTelefones($values)
 		{
 			if (!trim($values->id_tipotelefone))
-				throw new Exception("É obrigatório informar o tipo do telefone.");
+				WPDebug::exception("É obrigatório informar o tipo do telefone.");
 			if (!trim($values->ddi))
-				throw new Exception("É obrigatório informar o DDI.");
+				WPDebug::exception("É obrigatório informar o DDI.");
 			if (strlen(trim($values->ddi)) < 2)
-				throw new Exception("DDI deve ter no mínimo 2 caracteres.");
+				WPDebug::exception("DDI deve ter no mínimo 2 caracteres.");
 			if (!trim($values->ddd))
-				throw new Exception("É obrigatório informar o DDD.");
+				WPDebug::exception("É obrigatório informar o DDD.");
 			if (strlen(trim($values->ddd)) < 2)
-				throw new Exception("DDD deve ter no mínimo 2 caracteres.");
+				WPDebug::exception("DDD deve ter no mínimo 2 caracteres.");
 			if (!trim($values->numero))
-				throw new Exception("É obrigatório informar o número do telefone.");
+				WPDebug::exception("É obrigatório informar o número do telefone.");
 			if (strlen(trim($values->numero)) < 7)
-				throw new Exception("Número do telefone deve ter no mínimo 7 caracteres.");
+				WPDebug::exception("Número do telefone deve ter no mínimo 7 caracteres.");
 		}
 
 		public function salvarTelefones($values)
@@ -270,12 +270,12 @@
 		public function validarEmails($values)
 		{
 			if (!trim($values->id_tipoemail))
-				throw new Exception("É obrigatório informar o tipo do e-mail.");
+				WPDebug::exception("É obrigatório informar o tipo do e-mail.");
 			if (!trim($values->email))
-				throw new Exception("É obrigatório informar o e-mail.");
+				WPDebug::exception("É obrigatório informar o e-mail.");
 			/*colocar validação de e-mail aqui
 			if (!validaEmail(trim($values->email)))
-				throw new Exception("E-mail inválido.");
+				WPDebug::exception("E-mail inválido.");
 			*/
 		}
 

@@ -39,7 +39,7 @@
 			{
 				if (strstr($e->getMessage(), "More than one result returned."))
 				{
-					throw new Exception("Foram encontrados dois cadastros para a mesma informação! Corrija o erro antes:\n$index: $value");
+					WPDebug::exception("Foram encontrados dois cadastros para a mesma informação! Corrija o erro antes:\n$index: $value");
 					return false;
 				}
 
@@ -56,7 +56,7 @@
 					return $this->pessoa->toXML();
 				}
 
-				throw new Exception("Não foi possível localizar cadastro com os dados informados:\n$index: $value");
+				WPDebug::exception("Não foi possível localizar cadastro com os dados informados:\n$index: $value");
 			}
 		}
 		
@@ -67,33 +67,33 @@
 			$this->validarPessoa($params);
 			
 			if (!trim($params->PessoaFisica->cpf) && !trim($params->PessoaFisica->passaporte))
-				throw new Exception("É obrigatório informar o cpf ou passaporte da pessoa");
+				WPDebug::exception("É obrigatório informar o cpf ou passaporte da pessoa");
 
 			if (!trim($params->PessoaFisica->rg_orgao))
-				throw new Exception("É obrigatório informar o rg/órgão expedidor da pessoa.");
+				WPDebug::exception("É obrigatório informar o rg/órgão expedidor da pessoa.");
 
 			if (!trim($params->PessoaFisica->id_estadocivil))
-				throw new Exception("É obrigatório informar o estado civil da pessoa.");
+				WPDebug::exception("É obrigatório informar o estado civil da pessoa.");
 
 			if (!trim($params->PessoaFisica->id_sexo))
-				throw new Exception("É obrigatório informar o sexo da pessoa.");
+				WPDebug::exception("É obrigatório informar o sexo da pessoa.");
 
 			if (!trim($params->PessoaFisica->cidade_origem))
-				throw new Exception("É obrigatório informar a cidade de origem da pessoa.");
+				WPDebug::exception("É obrigatório informar a cidade de origem da pessoa.");
 			if (strlen(trim($params->PessoaFisica->cidade_origem)) < 3)
-				throw new Exception("Cidade de origem da pessoa deve ter no mínimo 3 caracteres.");
+				WPDebug::exception("Cidade de origem da pessoa deve ter no mínimo 3 caracteres.");
 
 			if (!trim($params->PessoaFisica->id_uf))
-				throw new Exception("É obrigatório informar a uf de origem da pessoa.");
+				WPDebug::exception("É obrigatório informar a uf de origem da pessoa.");
 
 			if (!trim($params->PessoaFisica->id_pais))
-				throw new Exception("É obrigatório informar o país de origem da pessoa.");
+				WPDebug::exception("É obrigatório informar o país de origem da pessoa.");
 
 			if (!trim($params->PessoaFisica->nacionalidade))
-				throw new Exception("É obrigatório informar a nacionalidade da pessoa.");
+				WPDebug::exception("É obrigatório informar a nacionalidade da pessoa.");
 
 			if (!trim($params->PessoaFisica->nascimento))
-				throw new Exception("É obrigatório informar a data de nascimento da pessoa.");
+				WPDebug::exception("É obrigatório informar a data de nascimento da pessoa.");
 		}
 
 		public function salvarPessoaFisica($params)
