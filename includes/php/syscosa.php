@@ -42,9 +42,13 @@
 					$service = new ControlLogin();
 				else
 					$service = unserialize($_SESSION[$GLOBALS['SYSTEM']]["ControlLogin"]);
+					
+				WPDebug::info('Carregado ControlLogin.');
 
 				if ($service->checkPermission($GLOBALS['SYSTEM'], $cosa_interface))
 				{
+					WPDebug::info('Credenciais de acesso a '.$cosa_interface.' ok.');
+					
 					if (!isset($_SESSION["ControlInterface"]))
 						$service = new ControlInterface();
 					else
@@ -57,7 +61,7 @@
 					return $return;
 				}
 				else
-					throw new Exception("ERRO DE PERMISSÃO: Você não pode acessar o recurso solicitado.");
+					WPDebug::exception("ERRO DE PERMISSÃO: Você não pode acessar o recurso solicitado.");
 			}
 			catch (Exception $e)
 			{
@@ -79,8 +83,12 @@
 					$service = new ControlLogin();
 				else
 					$service = unserialize($_SESSION[$GLOBALS['SYSTEM']]["ControlLogin"]);
+					
+				WPDebug::info('Carregado ControlLogin.');
 
 				$return = $service->doLogin($cosa_user, $cosa_pass);
+				
+				WPDebug::info('Login efetuado com sucesso.');
 
 				$_SESSION[$GLOBALS['SYSTEM']]["ControlLogin"] = serialize($service);
 
@@ -105,10 +113,14 @@
 					$service = new ControlLogin();
 				else
 					$service = unserialize($_SESSION[$GLOBALS['SYSTEM']]["ControlLogin"]);
+					
+				WPDebug::info('Carregado ControlLogin.');
 
 				$return = $service->doLogout();
+				
+				WPDebug::info('Logout efetuado com sucesso.');
 
-				$_SESSION[$GLOBALS['SYSTEM']]["ControlLogin"] = serialize($service);
+				$_SESSION[$GLOBALS['SYSTEM']] = array();
 
 				return $return;
 			}
@@ -132,22 +144,30 @@
 					$service = new ControlLogin();
 				else
 					$service = unserialize($_SESSION[$GLOBALS['SYSTEM']]["ControlLogin"]);
+					
+				WPDebug::info('Carregado ControlLogin.');
 
 				if ($service->checkPermission($GLOBALS['SYSTEM'], null, $cosa_service, $cosa_params->metodo))
 				{
+					WPDebug::info('Credenciais de acesso a '.$cosa_service.'->'.$cosa_method.' ok.');
+					
 					if (!isset($_SESSION[$GLOBALS['SYSTEM']][$cosa_service]))
 						$service = new $cosa_service();
 					else
 						$service = unserialize($_SESSION[$GLOBALS['SYSTEM']][$cosa_service]);
+						
+					WPDebug::info('Carregado '.$cosa_service);
 
 					$return = $service->$cosa_method($cosa_params);
+					
+					WPDebug::info('Executado método '.$cosa_service.'->'.$cosa_method);
 
 					$_SESSION[$GLOBALS['SYSTEM']][$cosa_service] = serialize($service);
 
 					return "<response>\n".$return."\n</response>\n";
 				}
 				else
-					throw new Exception("ERRO DE PERMISSÃO: Você não pode acessar o recurso solicitado.");
+					WPDebug::exception("ERRO DE PERMISSÃO: Você não pode acessar o recurso solicitado.");
 			}
 			catch (Exception $e)
 			{
@@ -169,22 +189,30 @@
 					$service = new ControlLogin();
 				else
 					$service = unserialize($_SESSION[$GLOBALS['SYSTEM']]["ControlLogin"]);
+					
+				WPDebug::info('Carregado ControlLogin.');
 
 				if ($service->checkPermission($GLOBALS['SYSTEM'], null, $cosa_service, $cosa_params->metodo))
 				{
+					WPDebug::info('Credenciais de acesso a '.$cosa_service.'->'.$cosa_method.' ok.');
+					
 					if (!isset($_SESSION[$GLOBALS['SYSTEM']][$cosa_service]))
 						$service = new $cosa_service();
 					else
 						$service = unserialize($_SESSION[$GLOBALS['SYSTEM']][$cosa_service]);
+						
+					WPDebug::info('Carregado '.$cosa_service);
 
 					$return = $service->$cosa_method($cosa_params);
+					
+					WPDebug::info('Executado método '.$cosa_service.'->'.$cosa_method);
 
 					$_SESSION[$GLOBALS['SYSTEM']][$cosa_service] = serialize($service);
 
 					return "<response>\n".$return."\n</response>\n";
 				}
 				else
-					throw new Exception("ERRO DE PERMISSÃO: Você não pode acessar o recurso solicitado.");
+					WPDebug::exception("ERRO DE PERMISSÃO: Você não pode acessar o recurso solicitado.");
 			}
 			catch (Exception $e)
 			{
@@ -205,9 +233,13 @@
 					$service = new ControlLogin();
 				else
 					$service = unserialize($_SESSION[$GLOBALS['SYSTEM']]["ControlLogin"]);
+					
+				WPDebug::info('Carregado ControlLogin.');
 
 				if ($service->checkPermission($GLOBALS['SYSTEM'], null, null, null, $cosa_params->id_prelatorio))
 				{
+					WPDebug::info('Credenciais de acesso ao relatório ok.');
+					
 					if (!isset($_SESSION[$GLOBALS['SYSTEM']]["ControlReport"]))
 						$service = new ControlReport();
 					else
@@ -220,7 +252,7 @@
 					return $return;
 				}
 				else
-					throw new Exception("ERRO DE PERMISSÃO: Você não pode acessar o recurso solicitado.");
+					WPDebug::exception("ERRO DE PERMISSÃO: Você não pode acessar o recurso solicitado.");
 			}
 			catch (Exception $e)
 			{

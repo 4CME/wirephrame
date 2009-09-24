@@ -18,11 +18,17 @@
 	//RePHPort - lib para geração de relatórios
 	require('libs/RePHPort/RePHPort.php');
 	
-	//FirePHP - lib para depuração com Ajax/WebServices
+	//FirePHP - lib auxiliar para depuração com Ajax/WebServices
 	require('libs/FirePHP/fb.php');
+	
+	//WPDebug - lib para depuração com Ajax/WebServices
+	require('libs/WPDebug/WPDebug.php');
 	
 	//Configurações do Sistema
 	require('sysconf.php');
+	
+	//Definições de ambiente com base nas configurações
+	require('sysambient.php');
 	
 	//Funções gerais utilizadas pelo framework
 	require('sysgeneralfunctions.php');
