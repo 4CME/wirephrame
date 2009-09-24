@@ -29,7 +29,7 @@
 			}
 			catch (Exception $e)
 			{
-				throw new Exception($e->getMessage());
+				WPDebug::exception($e->getMessage());
 				return false;
 			}
 		}
@@ -93,7 +93,7 @@
 				return $result;
 			}
 			else
-				throw new Exception('Não foi possível encontrar relatórios aos quais você tenha permissão de acesso.');
+				WPDebug::exception('Não foi possível encontrar relatórios aos quais você tenha permissão de acesso.');
 		}
 	}
 
