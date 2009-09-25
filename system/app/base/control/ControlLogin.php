@@ -16,6 +16,7 @@
 		{
 			try
 			{
+				WPDebug::log('Iniciando processo de login.');
 				//1 - Verifica se usuario tem acesso ao sistema em questao
 				$this->usuario->load(array('login' => $cosa_user));
 
@@ -23,6 +24,7 @@
 				//... no AD
 				if ($GLOBALS['AUTH_LDAP'])
 				{
+					WPDebug::log('Autenticando via LDAP.');
 					// Conectando ao servidor
 					if (!ldap_bind($GLOBALS['AUTH_LDAP_CONN'], $GLOBALS['AUTH_LDAP_DOMAIN'].'\\'.$cosa_user, $cosa_pass))
 						WPDebug::exception('Não foi possível autenticar no LDAP/AD.');
@@ -30,14 +32,17 @@
 				//... ou no banco de dados
 				else
 				{
+					WPDebug::log('Autenticando em banco de dados.');
 					$this->usuario->load(array('login' => $cosa_user, 'password' => md5($cosa_pass)));
 				}
 
+				WPDebug::log('Verificando perfil de acesso ao sistema.');
 				//3 - Verifica se tem algum perfil de acesso ao sistema
 				//primeiro, pegamos o id do sistema atual
 				$sistema = new Sistema();
 				$sistema->load(array('nome' => $GLOBALS['SYSTEM']));
 
+				WPDebug::log('Verificando nivel de acesso ao sistema.');
 				//agora verificamos se existe algum perfil de acesso para este sistema para este usuario
 				//o load lancara uma exceccao se nao existir perfil
 				$this->nivelacesso->loadAll(array(
@@ -47,6 +52,8 @@
 
 				//4 - Se chegou ate aqui, esta ok, retorna mensagem
 				$this->counter = 0;
+				
+				WPDebug::log('Acesso ok, prosseguindo.');
 				return $cosa_message = 'app.loadInterface(interface_principal_sistema);';
 			}
 			catch(Exception $e)
@@ -68,24 +75,31 @@
 					}
 				}
 				else
+				{
+					WPDebug::error('Login inválido.');
 					WPDebug::exception($this->counter.' >> '.$e->getMessage());
+				}
 			}
 
 		}
 
 		public function doLogout()
 		{
+			WPDebug::log('Limpando sessão.');
 			$_SESSION[$GLOBALS['SYSTEM']] = array();
 			return $cosa_message = 'if (app.UIcomponents.menubar.childNodes[0]){while (app.UIcomponents.menubar.childNodes[0])app.UIcomponents.menubar.removeChild(app.UIcomponents.menubar.childNodes[0]);}; app.loadInterface(\'InterfaceLogin\');';
 		}
 
 		public function checkPermission($system = null, $interface = null, $control = null, $method = null, $report = null)
 		{
+			WPDebug::log('Checando perfil.');
 			//checa primeiro o perfil, se for admin, pode tudo
 			$perfil = new Perfil();
 			$perfil->load($this->nivelacesso->id_perfil);
+			WPDebug::log('Se perfil for de Administrador, não há mais checagens.');
 			if ($perfil->nome != 'Administrador')
 			{
+				WPDebug::log('Verificando se tem acesso à Interface.');
 				if ($interface)
 				{
 					//pega o nivel de acesso do usuario
@@ -94,6 +108,7 @@
 					$this->nivelacesso->permissoes;
 
 					//busca se há controle de permissões para este sistema com esta interface
+					WPDebug::log('Verificando se interface requer controle de acesso.');
 					$permissao = new Permissao();
 
 					$atributos = array('id');
@@ -118,7 +133,8 @@
 											'id_permissao' => ' in ('.$ids.')'
 											);
 						$result_sistemapermissao = $sistemapermissao->search($atributos, $criterios);
-
+						
+						WPDebug::log('Se houver, verifica se usuário tem permissão.');
 						//se houver, verifica se o usuario tem essa permissao
 						if ($result_sistemapermissao)
 						{
@@ -144,9 +160,13 @@
 
 							//se não tiver permissão...
 							if(!$tem)
+							{
+								WPDebug::log('Usuário não tem permissão');
 								return false;
+							}
 						}
 					}
+					WPDebug::log('Permissão de acesso à interface concedida.');
 				}
 
 				if ($control && $method)
