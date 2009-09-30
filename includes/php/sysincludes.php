@@ -25,7 +25,7 @@
 	require('libs/WPDebug/WPDebug.php');
 	
 	//Configurações do Sistema
-	require('sysconf.php');
+	require('system/config/sysconf.php');
 	
 	//Definições de ambiente com base nas configurações
 	require('sysambient.php');
@@ -37,7 +37,7 @@
 	require('syscosa.php');
 	
 	//Conexão de Banco de Dados para a POP
-	require('sysdb.php');
+	require('system/config/sysdb.php');
 	
 	//Conexão LDAP/AD
 	require('sysldap.php');
