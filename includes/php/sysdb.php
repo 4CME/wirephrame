@@ -8,13 +8,9 @@
 	 * @package    WirePhrame
 	 * @subpackage Banco de Dados
 	 */
-	
-	global
-		$pop_db;
 		
 	/**
 	 * Conexão PDO com o Banco de Dados utilizada pela POP
-	 * @global string $GLOBALS['pop_db']
 	 */
 	
 	try
