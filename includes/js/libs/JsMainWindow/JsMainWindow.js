@@ -104,8 +104,9 @@
 				self.debugbt.setWidth(100);
 				//self.debugbt.setHeight(20);
 				self.debugbt.setValue("Comm Debug");
+				self.debugbt.style.position = 'absolute';
 				self.debugbt.style.right = 0;
-				self.debugbt.setYPos(0);
+				self.debugbt.style.bottom = 0;
 				
 				if (jsAmbient == "devel")
 					self.appendChild(self.debugbt);
