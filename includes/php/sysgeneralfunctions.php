@@ -64,7 +64,8 @@
 			{
 				if (is_dir($path.$content))
 				{
-					if ($return = file_recursive_get_contents($path.$content, $file))
+					$return = file_recursive_get_contents($path.$content, $file);
+					if ($return)
 						return $return;
 				}
 				else if (
